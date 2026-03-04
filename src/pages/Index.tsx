@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Award, Shield, Globe, Zap } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const heroSlides = [
+  {
+    url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=80",
+    alt: "Industrial gas pressure vessels",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=80",
+    alt: "CNG station infrastructure",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=1600&q=80",
+    alt: "Industrial steel pipeline",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    alt: "Engineering manufacturing facility",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=1600&q=80",
+    alt: "High pressure gas storage",
+  },
+];
 
 const stats = [
   { value: "600+", label: "Cascades Supplied" },
@@ -15,26 +39,30 @@ const products = [
   {
     title: "Type 1 CNG Cascade",
     desc: "High-pressure CNG storage cascades for stations and mobile dispensing. Range: 300–13,200 Ltr.",
-    icon: "🏭",
-    href: "/products#cng",
+    href: "/products/cng",
+    accentColor: "bg-blue-600",
+    tag: "CNG",
   },
   {
     title: "Type 1 CBG Cascade",
     desc: "Compressed Bio-Gas cascades built to the same rigorous standards as our CNG line.",
-    icon: "🌱",
-    href: "/products#cbg",
+    href: "/products/cbg",
+    accentColor: "bg-green-600",
+    tag: "CBG",
   },
   {
     title: "Type 1 Hydrogen Cascade",
     desc: "Future-ready hydrogen storage cascades for clean energy applications.",
-    icon: "⚡",
-    href: "/products#hydrogen",
+    href: "/products/hydrogen",
+    accentColor: "bg-purple-600",
+    tag: "H₂",
   },
   {
     title: "Fill Post & Tubing",
     desc: "Complete CNG station tubing solutions and fill post assemblies.",
-    icon: "🔧",
-    href: "/products#fillpost",
+    href: "/products/fillpost",
+    accentColor: "bg-orange",
+    tag: "INFRA",
   },
 ];
 
@@ -52,22 +80,54 @@ const clients = [
 ];
 
 export default function Home() {
+  const [current, setCurrent] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navbar />
 
-      {/* Hero */}
-      <section
-        className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(215,60%,12%) 0%, hsl(215,50%,20%) 60%, hsl(210,30%,28%) 100%)" }}
-      >
-        {/* Decorative grid overlay */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 39px,hsl(28,90%,52%) 39px,hsl(28,90%,52%) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,hsl(28,90%,52%) 39px,hsl(28,90%,52%) 40px)",
-          }}
-        />
+      {/* Hero with background slider */}
+      <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        {/* Slides */}
+        {heroSlides.map((slide, i) => (
+          <div
+            key={slide.url}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === current ? 1 : 0 }}
+          >
+            <img
+              src={slide.url}
+              alt={slide.alt}
+              className="w-full h-full object-cover"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/70 to-navy/90" />
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-orange w-6" : "bg-white/40"}`}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 bg-orange/20 border border-orange/40 rounded-full px-4 py-1.5 text-orange text-xs font-bold uppercase tracking-widest mb-6">
             ISO 9001:2015 · PESO Approved · Est. 2019
@@ -80,7 +140,7 @@ export default function Home() {
             <br />
             Tubing Solutions
           </h1>
-          <p className="text-white/70 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
             Manufacturer of Type 1 CNG, CBG & Hydrogen Cascades. Supplying to HPCL, IOCL, GAIL & 600+ clients across India and internationally.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -126,13 +186,18 @@ export default function Home() {
               <Link
                 key={p.title}
                 to={p.href}
-                className="group bg-white border border-border rounded-xl p-6 hover:border-orange hover:shadow-xl transition-all duration-300"
+                className="group bg-white border border-border rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="text-4xl mb-4">{p.icon}</div>
-                <h3 className="text-navy font-bold text-lg mb-2 group-hover:text-orange transition-colors">{p.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
-                <div className="mt-4 flex items-center gap-1 text-orange text-sm font-semibold">
-                  Learn more <ArrowRight size={14} />
+                <div className={`h-1.5 w-full ${p.accentColor}`} />
+                <div className="p-6">
+                  <span className={`inline-block text-white text-[10px] font-black tracking-widest uppercase px-2 py-0.5 rounded mb-3 ${p.accentColor}`}>
+                    {p.tag}
+                  </span>
+                  <h3 className="text-navy font-bold text-lg mb-2 group-hover:text-orange transition-colors">{p.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-orange text-sm font-semibold">
+                    Learn more <ArrowRight size={14} />
+                  </div>
                 </div>
               </Link>
             ))}
