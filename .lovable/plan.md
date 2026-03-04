@@ -1,48 +1,52 @@
 
-## Maruti Engineering & Services — Website Plan
+## Plan: Hero Photo Slider + Separate Product Pages + Design Improvements
 
-### Design
-- **Style**: Industrial & Professional — dark navy/steel blue primary color, orange/amber accent, white text
-- **Font**: Bold headings, clean sans-serif body
-- **Logo**: Text-based "M. MARUTI ENGINEERING" with a gear/pressure tank icon
+### 1. Hero Section — Auto-playing Image Carousel Background
+- Use `embla-carousel-react` (already installed) with autoplay via `setInterval`
+- 4–5 industrial/cascade images using high-quality Unsplash URLs (industrial gas tanks, pressure vessels, CNG stations)
+- Slides cycle every 4s with a smooth crossfade overlay
+- Hero text and CTA buttons remain on top with a dark overlay ensuring readability
 
----
+### 2. Separate Product Pages (4 new routes)
+Create individual pages:
+- `/products/cng` → `src/pages/products/CngCascade.tsx`
+- `/products/cbg` → `src/pages/products/CbgCascade.tsx`
+- `/products/hydrogen` → `src/pages/products/HydrogenCascade.tsx`
+- `/products/fillpost` → `src/pages/products/FillPost.tsx`
 
-### Pages & Sections
+Each page will have:
+- Hero banner with product name
+- Full description
+- Technical specs table
+- Applications list
+- "Request Inquiry" CTA linking to `/contact`
 
-#### 1. Home (`/`)
-- **Navbar**: Logo + links (Home, About, Products, Contact)
-- **Hero**: Full-width banner — "Trusted in High Pressure Cascade & Station Tubing Solutions" with CTA buttons (Explore Products, Contact Us)
-- **Stats Bar**: 600+ Cascades Supplied · Pan-India · ISO 9001 · PESO Approved · Exports to Nigeria & Tanzania
-- **Products Snapshot**: 4 product cards (CNG Cascade, CBG Cascade, Hydrogen Cascade, Fill Post) linking to product detail sections
-- **Why Choose Us**: Safe · Reliable · ISO Certified · Largest capacity in India
-- **Clients Strip**: Logos/names of key clients (IMC, AGNP, Think Gas, HPCL, IOCL, etc.)
-- **Footer**: Address (Unit 1 & 2), Phone, Email, GST
+The main `/products` page becomes a product listing/overview with cards linking to these individual pages (no emoji icons — replace with styled category badges or colored accent bars).
 
-#### 2. About Us (`/about`)
-- Company story (est. 2019, Halol, Gujarat)
-- Certifications: MSME, ISO 9001:2015, PESO
-- Key Members: Mr. Jayesh Patel, Mr. Bhanuprasad Patel, Mr. R. Mohan
-- Owned facilities: Mahadev Gas Station, 2 CNG Testing Plants
+Update `App.tsx` to add the 4 new routes.
 
-#### 3. Products (`/products`)
-- **Type 1 CNG Cascade** — range 300–13,200 Ltr, stationary & mobile
-- **Type 1 CBG Cascade** — Compressed Bio-Gas, same range
-- **Type 1 Hydrogen Cascade** — for clean hydrogen storage
-- **Fill Post** — CNG station tubing and fill post solutions
-- Each product has a dedicated section/card with description, specs, and inquiry button
+Update `Index.tsx` product cards to link to `/products/cng` etc. instead of hash links.
 
-#### 4. Contact (`/contact`)
-- Contact form (Name, Company, Email, Phone, Message)
-- Address block for Unit 1 & Unit 2 (Halol, GIDC)
-- Phone: +91 9924567355
-- Email: maruties.2019@gmail.com
-- GST number displayed
+### 3. Remove Emoji Icons
+- Products page listing: remove `icon` emoji from product data and cards
+- Replace with a decorative colored top-border or category tag on cards instead
 
----
+### 4. Design Improvements
+- **Navbar**: Add subtle backdrop blur `bg-white/90 backdrop-blur` when scrolled (scroll listener)
+- **Product cards on home**: More polished cards with a colored accent bar on top instead of emoji
+- **Why Choose Us section**: Keep lucide icons (they look professional, not emoji)
+- **Products listing page**: Clean grid layout with large cards, category color accent borders
+- **Typography**: Slightly larger section headings, better spacing
+- **Hover effects**: Subtle `shadow-xl` and `translateY(-2px)` on cards
 
-### Technical Notes
-- React Router for navigation
-- Responsive (mobile-friendly)
-- Smooth scroll and subtle animations
-- No backend needed (contact form will show a toast confirmation)
+### Files to create/edit:
+```
+CREATE src/pages/products/CngCascade.tsx
+CREATE src/pages/products/CbgCascade.tsx
+CREATE src/pages/products/HydrogenCascade.tsx
+CREATE src/pages/products/FillPost.tsx
+EDIT   src/pages/Index.tsx      (hero slider + product cards)
+EDIT   src/pages/Products.tsx   (listing page, remove icons, link to new pages)
+EDIT   src/App.tsx              (add 4 new routes)
+EDIT   src/components/Navbar.tsx (scroll-aware styling)
+```
