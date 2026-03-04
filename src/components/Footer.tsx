@@ -28,7 +28,7 @@ export default function Footer() {
             <h4 className="text-orange font-bold uppercase text-xs tracking-widest mb-4">Unit 1 — Manufacturing</h4>
             <div className="flex gap-2 text-sm text-white/70 mb-2">
               <MapPin size={14} className="text-orange mt-0.5 shrink-0" />
-              <span>Plot No. 1815/B, Phase-3, GIDC Halol, Panchmahal — 389350, Gujarat</span>
+              <span>Plot No. 131/4, Halol - Maswad Industrial Estate, Panchmahal — 389350, Gujarat</span>
             </div>
             <div className="flex gap-2 text-sm text-white/70 mb-2">
               <Phone size={14} className="text-orange mt-0.5 shrink-0" />
@@ -45,7 +45,7 @@ export default function Footer() {
             <h4 className="text-orange font-bold uppercase text-xs tracking-widest mb-4">Unit 2 — Testing & Assembly</h4>
             <div className="flex gap-2 text-sm text-white/70 mb-4">
               <Building2 size={14} className="text-orange mt-0.5 shrink-0" />
-              <span>Plot No. 3511, Phase-4, GIDC Halol, Panchmahal — 389350, Gujarat</span>
+              <span>Plot No. 713/4, Halol - Maswad Industrial Estate, Panchmahal — 389350, Gujarat</span>
             </div>
             <h4 className="text-orange font-bold uppercase text-xs tracking-widest mb-3">Quick Links</h4>
             <div className="flex flex-col gap-1">
