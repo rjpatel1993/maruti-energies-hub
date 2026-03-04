@@ -1,52 +1,36 @@
+## Plan: Gallery / Portfolio Page
 
-## Plan: Hero Photo Slider + Separate Product Pages + Design Improvements
+### New Page: `/gallery`
 
-### 1. Hero Section — Auto-playing Image Carousel Background
-- Use `embla-carousel-react` (already installed) with autoplay via `setInterval`
-- 4–5 industrial/cascade images using high-quality Unsplash URLs (industrial gas tanks, pressure vessels, CNG stations)
-- Slides cycle every 4s with a smooth crossfade overlay
-- Hero text and CTA buttons remain on top with a dark overlay ensuring readability
+A dedicated gallery page showcasing photos of recent work — installed cascades, manufacturing facility, testing plants, and client sites.
 
-### 2. Separate Product Pages (4 new routes)
-Create individual pages:
-- `/products/cng` → `src/pages/products/CngCascade.tsx`
-- `/products/cbg` → `src/pages/products/CbgCascade.tsx`
-- `/products/hydrogen` → `src/pages/products/HydrogenCascade.tsx`
-- `/products/fillpost` → `src/pages/products/FillPost.tsx`
+**Sections:**
 
-Each page will have:
-- Hero banner with product name
-- Full description
-- Technical specs table
-- Applications list
-- "Request Inquiry" CTA linking to `/contact`
+1. **Hero banner** — "Our Work" with a short subtitle
+2. **Filter tabs** — All | CNG Cascades | CBG Cascades | Hydrogen | Fill Post | Facility (so visitors can filter by category)
+3. **Masonry/grid photo cards** — Each card shows an image, a short caption, and a category badge
+4. **Lightbox on click** — Clicking a photo opens a full-screen overlay with the image and caption
 
-The main `/products` page becomes a product listing/overview with cards linking to these individual pages (no emoji icons — replace with styled category badges or colored accent bars).
+### Image Strategy
 
-Update `App.tsx` to add the 4 new routes.
+Since no photos are uploaded yet, the page will use placeholder images from Unsplash (industrial/gas/pressure vessel imagery) with real captions. The user can later swap these with actual photos by uploading them directly in the chat.
 
-Update `Index.tsx` product cards to link to `/products/cng` etc. instead of hash links.
+### Navigation
 
-### 3. Remove Emoji Icons
-- Products page listing: remove `icon` emoji from product data and cards
-- Replace with a decorative colored top-border or category tag on cards instead
-
-### 4. Design Improvements
-- **Navbar**: Add subtle backdrop blur `bg-white/90 backdrop-blur` when scrolled (scroll listener)
-- **Product cards on home**: More polished cards with a colored accent bar on top instead of emoji
-- **Why Choose Us section**: Keep lucide icons (they look professional, not emoji)
-- **Products listing page**: Clean grid layout with large cards, category color accent borders
-- **Typography**: Slightly larger section headings, better spacing
-- **Hover effects**: Subtle `shadow-xl` and `translateY(-2px)` on cards
+- Add "Gallery" link to `Navbar.tsx` nav links
+- Add "Gallery" link to footer quick links
 
 ### Files to create/edit:
+
 ```
-CREATE src/pages/products/CngCascade.tsx
-CREATE src/pages/products/CbgCascade.tsx
-CREATE src/pages/products/HydrogenCascade.tsx
-CREATE src/pages/products/FillPost.tsx
-EDIT   src/pages/Index.tsx      (hero slider + product cards)
-EDIT   src/pages/Products.tsx   (listing page, remove icons, link to new pages)
-EDIT   src/App.tsx              (add 4 new routes)
-EDIT   src/components/Navbar.tsx (scroll-aware styling)
+CREATE src/pages/Gallery.tsx
+EDIT   src/App.tsx              (add /gallery route)
+EDIT   src/components/Navbar.tsx (add Gallery nav link)
+EDIT   src/components/Footer.tsx (add Gallery to quick links)
 ```
+
+### Note for User
+
+You can upload real photos directly in the chat (drag and drop or attach), and I'll replace the placeholder images with your actual work photos instantly.  
+  
+i also want to add that section on homepage
