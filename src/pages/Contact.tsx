@@ -153,7 +153,7 @@ export default function Contact() {
                   </div>
                   <div className="flex gap-2 text-sm text-muted-foreground mb-2">
                     <MapPin size={14} className="text-orange mt-0.5 shrink-0" />
-                    <span>Plot No. 1815/B, Phase-3, GIDC Halol, Panchmahal — 389350, Gujarat, India</span>
+                    <span>Plot No. 131/4, Halol - Maswad Industrial Estate, Panchmahal — 389350, Gujarat</span>
                   </div>
                 </div>
 
@@ -165,7 +165,7 @@ export default function Contact() {
                   </div>
                   <div className="flex gap-2 text-sm text-muted-foreground">
                     <MapPin size={14} className="text-orange mt-0.5 shrink-0" />
-                    <span>Plot No. 3511, Phase-4, GIDC Halol, Panchmahal — 389350, Gujarat, India</span>
+                    <span>Plot No. 713/4, Halol - Maswad Industrial Estate, Panchmahal — 389350, Gujarat</span>
                   </div>
                 </div>
               </div>

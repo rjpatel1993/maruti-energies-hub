@@ -20,11 +20,7 @@ const team = [
   role: "Technical Director",
   desc: "Oversees manufacturing quality, engineering standards and R&D for all cascade products."
 },
-{
-  name: "Mr. R. Mohan",
-  role: "Operations Head",
-  desc: "Manages production planning, supply chain and delivery across Pan-India operations."
-}];
+];
 
 
 const milestones = [
