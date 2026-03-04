@@ -8,73 +8,65 @@ const products = [
     id: "cng",
     title: "Type 1 CNG Cascade",
     subtitle: "Compressed Natural Gas Storage",
-    icon: "🏭",
+    tag: "CNG",
+    tagColor: "bg-blue-600",
+    accentColor: "border-t-blue-600",
     description:
-      "Our flagship product — Type 1 CNG Cascades are manufactured from seamless carbon steel tubes, designed for long-term high-pressure storage of Compressed Natural Gas. Available in stationary and mobile configurations, they are widely used in CNG mother stations, daughter booster stations, and online CNG stations.",
+      "Manufactured from seamless carbon steel tubes, designed for long-term high-pressure storage of Compressed Natural Gas. Available in stationary and mobile configurations.",
     specs: [
-      { label: "Capacity Range", value: "300 Ltr to 13,200 Ltr" },
-      { label: "Working Pressure", value: "200 Bar / 250 Bar" },
-      { label: "Test Pressure", value: "300 Bar / 375 Bar" },
-      { label: "Material", value: "Seamless Carbon Steel (IS 6990)" },
-      { label: "Configuration", value: "Stationary & Mobile" },
+      { label: "Capacity", value: "300–13,200 Ltr" },
+      { label: "Pressure", value: "200 / 250 Bar" },
       { label: "Approval", value: "PESO Approved" },
     ],
-    applications: ["CNG Mother Stations", "Daughter Booster Stations", "Online CNG Stations", "Industrial CNG Storage"],
-    color: "from-blue-900 to-navy",
+    href: "/products/cng",
   },
   {
     id: "cbg",
     title: "Type 1 CBG Cascade",
     subtitle: "Compressed Bio-Gas Storage",
-    icon: "🌱",
+    tag: "CBG",
+    tagColor: "bg-green-600",
+    accentColor: "border-t-green-600",
     description:
-      "Built to the same high standards as our CNG cascades, the Type 1 CBG Cascade is purpose-built for Compressed Bio-Gas. As India pushes towards green fuel alternatives, CBG cascades from Maruti Engineering support bio-gas plants, dairy farms, and municipal solid waste conversion projects.",
+      "Purpose-built for Compressed Bio-Gas, supporting India's green fuel push — from bio-gas plants and dairy farms to municipal waste conversion projects.",
     specs: [
-      { label: "Capacity Range", value: "300 Ltr to 13,200 Ltr" },
-      { label: "Working Pressure", value: "200 Bar / 250 Bar" },
-      { label: "Test Pressure", value: "300 Bar / 375 Bar" },
-      { label: "Material", value: "Seamless Carbon Steel" },
-      { label: "Configuration", value: "Stationary & Mobile" },
+      { label: "Capacity", value: "300–13,200 Ltr" },
+      { label: "Pressure", value: "200 / 250 Bar" },
       { label: "Standard", value: "IS 7285 / ISO 11439" },
     ],
-    applications: ["Bio-Gas Plants", "Dairy & Agricultural Sector", "Municipal Waste-to-Gas Projects", "CBG Dispensing Stations"],
-    color: "from-green-900 to-navy",
+    href: "/products/cbg",
   },
   {
     id: "hydrogen",
     title: "Type 1 Hydrogen Cascade",
     subtitle: "Clean Hydrogen Storage",
-    icon: "⚡",
+    tag: "H₂",
+    tagColor: "bg-purple-600",
+    accentColor: "border-t-purple-600",
     description:
-      "Maruti Engineering's Hydrogen Cascades represent our commitment to the clean energy future. Engineered for safe storage and dispensing of high-pressure hydrogen gas, these cascades meet the stringent requirements of hydrogen fuel cell vehicle stations and industrial hydrogen applications.",
+      "Engineered for safe storage of high-pressure hydrogen gas. Meets stringent requirements of hydrogen fuel cell stations and industrial hydrogen applications.",
     specs: [
-      { label: "Capacity Range", value: "300 Ltr to 13,200 Ltr" },
-      { label: "Working Pressure", value: "350 Bar / 700 Bar" },
-      { label: "Material", value: "Seamless Carbon Steel" },
-      { label: "Configuration", value: "Stationary" },
+      { label: "Capacity", value: "300–13,200 Ltr" },
+      { label: "Pressure", value: "350 / 700 Bar" },
       { label: "Standard", value: "CGD / PESO Norms" },
-      { label: "Application", value: "H2 Fuel Cell / Industrial" },
     ],
-    applications: ["Hydrogen Fuel Stations", "Industrial H2 Storage", "Green Hydrogen Projects", "R&D Facilities"],
-    color: "from-purple-900 to-navy",
+    href: "/products/hydrogen",
   },
   {
     id: "fillpost",
     title: "Fill Post & Station Tubing",
     subtitle: "CNG Station Infrastructure",
-    icon: "🔧",
+    tag: "INFRA",
+    tagColor: "bg-orange",
+    accentColor: "border-t-orange",
     description:
-      "Complete CNG station tubing and fill post solutions to complement our cascade products. Maruti Engineering supplies high-pressure tubing assemblies, fill posts, and station piping that meet all safety and regulatory requirements for CNG dispensing infrastructure.",
+      "Complete high-pressure tubing assemblies, fill posts, and station piping meeting all safety and regulatory requirements for CNG dispensing infrastructure.",
     specs: [
-      { label: "Pressure Rating", value: "Up to 250 Bar" },
-      { label: "Material", value: "High-grade SS / Carbon Steel" },
-      { label: "Fittings", value: "Swagelok / Parker Compatible" },
-      { label: "Hose Length", value: "Custom" },
-      { label: "Nozzle", value: "Type 1 CNG Nozzle" },
-      { label: "Standard", value: "IS / CGD Compliance" },
+      { label: "Pressure", value: "Up to 250 Bar" },
+      { label: "Fittings", value: "Swagelok / Parker" },
+      { label: "Standard", value: "IS / CGD Compliant" },
     ],
-    applications: ["CNG Dispensing Stations", "Cascade Interconnection", "Mother Station Piping", "Mobile CNG Units"],
-    color: "from-orange-900 to-navy",
+    href: "/products/fillpost",
   },
 ];
 
@@ -94,54 +86,48 @@ export default function Products() {
           </div>
         </section>
 
-        {/* Products */}
+        {/* Products Grid */}
         <section className="py-16 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-            {products.map((p, i) => (
-              <div
-                key={p.id}
-                id={p.id}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-start ${i % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
-              >
-                {/* Info */}
-                <div className={i % 2 !== 0 ? "lg:order-2" : ""}>
-                  <div className="text-4xl mb-4">{p.icon}</div>
-                  <p className="text-orange font-bold text-xs uppercase tracking-widest mb-2">{p.subtitle}</p>
-                  <h2 className="text-navy font-black text-3xl mb-4">{p.title}</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">{p.description}</p>
-
-                  <h4 className="text-navy font-bold text-sm uppercase tracking-wide mb-3">Applications</h4>
-                  <ul className="grid grid-cols-2 gap-2 mb-6">
-                    {p.applications.map((a) => (
-                      <li key={a} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-orange shrink-0" />
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center gap-2 bg-orange hover:bg-orange-dark text-white font-bold px-6 py-3 rounded transition-colors text-sm"
-                  >
-                    Request Inquiry <ArrowRight size={16} />
-                  </Link>
-                </div>
-
-                {/* Specs Card */}
-                <div className={`bg-navy rounded-2xl p-6 ${i % 2 !== 0 ? "lg:order-1" : ""}`}>
-                  <h4 className="text-orange font-bold text-xs uppercase tracking-widest mb-4">Technical Specifications</h4>
-                  <div className="space-y-3">
-                    {p.specs.map((s) => (
-                      <div key={s.label} className="flex justify-between items-start border-b border-white/10 pb-3">
-                        <span className="text-white/60 text-sm">{s.label}</span>
-                        <span className="text-white font-semibold text-sm text-right ml-4">{s.value}</span>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {products.map((p) => (
+                <div
+                  key={p.id}
+                  className={`bg-white border border-border border-t-4 ${p.accentColor} rounded-xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
+                >
+                  <div className="p-8">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <span className={`inline-block text-white text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded mb-3 ${p.tagColor}`}>
+                          {p.tag}
+                        </span>
+                        <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest">{p.subtitle}</p>
+                        <h2 className="text-navy font-black text-2xl mt-1">{p.title}</h2>
                       </div>
-                    ))}
+                    </div>
+
+                    <p className="text-muted-foreground leading-relaxed mb-6 text-sm">{p.description}</p>
+
+                    {/* Quick specs */}
+                    <div className="grid grid-cols-3 gap-3 mb-6">
+                      {p.specs.map((s) => (
+                        <div key={s.label} className="bg-muted/40 rounded-lg p-3 text-center">
+                          <div className="text-navy font-black text-sm">{s.value}</div>
+                          <div className="text-muted-foreground text-[10px] uppercase tracking-wide mt-0.5">{s.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Link
+                      to={p.href}
+                      className="inline-flex items-center gap-2 bg-navy hover:bg-navy/80 text-white font-bold px-6 py-2.5 rounded transition-colors text-sm"
+                    >
+                      View Full Details <ArrowRight size={14} />
+                    </Link>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
