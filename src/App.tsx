@@ -13,6 +13,7 @@ import CbgCascade from "./pages/products/CbgCascade";
 import HydrogenCascade from "./pages/products/HydrogenCascade";
 import FillPost from "./pages/products/FillPost";
 import Gallery from "./pages/Gallery";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
