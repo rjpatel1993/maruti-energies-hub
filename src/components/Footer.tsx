@@ -53,6 +53,7 @@ export default function Footer() {
                 { label: "Home", href: "/" },
                 { label: "About Us", href: "/about" },
                 { label: "Products", href: "/products" },
+                { label: "Gallery", href: "/gallery" },
                 { label: "Contact", href: "/contact" },
               ].map((l) => (
                 <Link key={l.href} to={l.href} className="text-sm text-white/60 hover:text-orange transition-colors">

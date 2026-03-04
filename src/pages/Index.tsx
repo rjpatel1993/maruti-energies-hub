@@ -244,6 +244,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Preview */}
+      <section className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <p className="text-orange font-bold text-xs uppercase tracking-widest mb-2">Portfolio</p>
+            <h2 className="text-navy text-3xl sm:text-4xl font-black">Recent Work</h2>
+            <p className="text-muted-foreground mt-3 text-base max-w-xl mx-auto">
+              Installations, manufacturing snapshots, and deployed cascade solutions across India and beyond.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            {[
+              { url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80", caption: "CNG Cascade – 13,200 Ltr" },
+              { url: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80", caption: "Manufacturing floor" },
+              { url: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80", caption: "CNG station infrastructure" },
+              { url: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80", caption: "Hydrogen cascade R&D" },
+              { url: "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=600&q=80", caption: "High-pressure storage vessels" },
+              { url: "https://images.unsplash.com/photo-1565008576549-57569a49371d?w=600&q=80", caption: "Fill post tubing network" },
+            ].map((photo) => (
+              <div key={photo.url} className="group relative rounded-xl overflow-hidden aspect-square border border-border shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+                <img src={photo.url} alt={photo.caption} className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/55 transition-all duration-300 flex items-end">
+                  <p className="w-full px-3 py-2 text-white text-xs font-medium translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">{photo.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link
+              to="/gallery"
+              className="inline-flex items-center gap-2 bg-navy text-white font-bold px-8 py-3.5 rounded hover:bg-navy/80 transition-colors text-sm"
+            >
+              View Full Gallery <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Banner */}
       <section className="py-16 bg-orange">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

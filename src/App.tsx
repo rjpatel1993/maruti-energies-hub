@@ -12,6 +12,7 @@ import CngCascade from "./pages/products/CngCascade";
 import CbgCascade from "./pages/products/CbgCascade";
 import HydrogenCascade from "./pages/products/HydrogenCascade";
 import FillPost from "./pages/products/FillPost";
+import Gallery from "./pages/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/products/cbg" element={<CbgCascade />} />
           <Route path="/products/hydrogen" element={<HydrogenCascade />} />
           <Route path="/products/fillpost" element={<FillPost />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
