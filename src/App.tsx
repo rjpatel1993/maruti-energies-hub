@@ -8,10 +8,7 @@ import About from "./pages/About";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import CngCascade from "./pages/products/CngCascade";
-import CbgCascade from "./pages/products/CbgCascade";
-import HydrogenCascade from "./pages/products/HydrogenCascade";
-import FillPost from "./pages/products/FillPost";
+import ProductDetail from "./pages/products/ProductDetail";
 import Gallery from "./pages/Gallery";
 import ScrollToTop from "./components/ScrollToTop";
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -30,10 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/products/cng" element={<CngCascade />} />
-          <Route path="/products/cbg" element={<CbgCascade />} />
-          <Route path="/products/hydrogen" element={<HydrogenCascade />} />
-          <Route path="/products/fillpost" element={<FillPost />} />
+          <Route path="/products/:slug" element={<ProductDetail />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<AdminLogin />} />
