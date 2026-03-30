@@ -1,0 +1,110 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Trash2, Plus } from "lucide-react";
+
+export default function AboutEditor() {
+  const [team, setTeam] = useState<any[]>([]);
+  const [milestones, setMilestones] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    Promise.all([
+      supabase.from("team_members").select("*").order("sort_order"),
+      supabase.from("milestones").select("*").order("sort_order"),
+    ]).then(([t, m]) => {
+      if (t.data) setTeam(t.data);
+      if (m.data) setMilestones(m.data);
+      setLoading(false);
+    });
+  }, []);
+
+  const saveTeam = async () => {
+    for (const t of team) {
+      await supabase.from("team_members").update({ name: t.name, role: t.role, description: t.description, sort_order: t.sort_order }).eq("id", t.id);
+    }
+    toast({ title: "Team saved!" });
+  };
+
+  const saveMilestones = async () => {
+    for (const m of milestones) {
+      await supabase.from("milestones").update({ year: m.year, text: m.text, sort_order: m.sort_order }).eq("id", m.id);
+    }
+    toast({ title: "Milestones saved!" });
+  };
+
+  const addTeamMember = async () => {
+    const { data } = await supabase.from("team_members").insert({ name: "New Member", role: "Role", description: "Description", sort_order: team.length }).select().single();
+    if (data) setTeam([...team, data]);
+  };
+
+  const removeTeamMember = async (id: string) => {
+    await supabase.from("team_members").delete().eq("id", id);
+    setTeam(team.filter((t) => t.id !== id));
+  };
+
+  const addMilestone = async () => {
+    const { data } = await supabase.from("milestones").insert({ year: "2025", text: "New milestone", sort_order: milestones.length }).select().single();
+    if (data) setMilestones([...milestones, data]);
+  };
+
+  const removeMilestone = async (id: string) => {
+    await supabase.from("milestones").delete().eq("id", id);
+    setMilestones(milestones.filter((m) => m.id !== id));
+  };
+
+  if (loading) return <p className="text-muted-foreground">Loading...</p>;
+
+  return (
+    <div className="space-y-10">
+      {/* Team */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-navy font-black text-xl">Team Members</h2>
+          <div className="flex gap-2">
+            <button onClick={addTeamMember} className="flex items-center gap-1.5 bg-orange text-white px-4 py-2 rounded-lg text-sm font-semibold"><Plus size={14} /> Add</button>
+            <button onClick={saveTeam} className="bg-navy text-white px-4 py-2 rounded-lg text-sm font-semibold">Save</button>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {team.map((t) => (
+            <div key={t.id} className="bg-white border border-border rounded-lg p-4 space-y-2">
+              <div className="flex gap-3">
+                <input value={t.name} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, name: e.target.value } : x))}
+                  className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Name" />
+                <input value={t.role} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, role: e.target.value } : x))}
+                  className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Role" />
+                <button onClick={() => removeTeamMember(t.id)} className="text-red-500"><Trash2 size={14} /></button>
+              </div>
+              <input value={t.description} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, description: e.target.value } : x))}
+                className="w-full border border-border rounded px-3 py-1.5 text-sm" placeholder="Description" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Milestones */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-navy font-black text-xl">Timeline / Milestones</h2>
+          <div className="flex gap-2">
+            <button onClick={addMilestone} className="flex items-center gap-1.5 bg-orange text-white px-4 py-2 rounded-lg text-sm font-semibold"><Plus size={14} /> Add</button>
+            <button onClick={saveMilestones} className="bg-navy text-white px-4 py-2 rounded-lg text-sm font-semibold">Save</button>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {milestones.map((m) => (
+            <div key={m.id} className="bg-white border border-border rounded-lg p-3 flex gap-3 items-start">
+              <input value={m.year} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, year: e.target.value } : x))}
+                className="border border-border rounded px-3 py-1.5 text-sm w-20" placeholder="Year" />
+              <input value={m.text} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, text: e.target.value } : x))}
+                className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Description" />
+              <button onClick={() => removeMilestone(m.id)} className="text-red-500"><Trash2 size={14} /></button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
