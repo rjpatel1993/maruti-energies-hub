@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
+  useEffect(() => { document.title = "Contact Us — Maruti Engineering & Services"; }, []);
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", product: "", message: "" });
   const [submitting, setSubmitting] = useState(false);

@@ -13,6 +13,8 @@ const certs = [
 ];
 
 export default function About() {
+  useEffect(() => { document.title = "About Us — Maruti Engineering & Services"; }, []);
+
   const { data: team = [] } = useQuery({
     queryKey: ["team_members"],
     queryFn: async () => {

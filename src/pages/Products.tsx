@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function Products() {
+  useEffect(() => { document.title = "Products — CNG, CBG & Hydrogen Cascades | Maruti Engineering"; }, []);
+
   const { data: products = [] } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
