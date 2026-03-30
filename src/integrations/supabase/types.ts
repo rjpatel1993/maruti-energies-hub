@@ -14,7 +14,338 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clients: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      company_info: {
+        Row: {
+          created_at: string
+          id: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      gallery_photos: {
+        Row: {
+          caption: string
+          category: string
+          created_at: string
+          id: string
+          sort_order: number
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          caption?: string
+          category?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          caption?: string
+          category?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      hero_slides: {
+        Row: {
+          alt: string
+          created_at: string
+          id: string
+          sort_order: number
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          alt?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          alt?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      milestones: {
+        Row: {
+          created_at: string
+          id: string
+          sort_order: number
+          text: string
+          year: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          sort_order?: number
+          text: string
+          year: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          sort_order?: number
+          text?: string
+          year?: string
+        }
+        Relationships: []
+      }
+      product_details: {
+        Row: {
+          accent_bar_color: string
+          accent_dot_color: string
+          applications: Json
+          created_at: string
+          cta_bg: string
+          cta_description: string
+          cta_title: string
+          hero_description: string
+          hero_subtitle: string
+          hero_tag: string
+          hero_tag_color: string
+          hero_title: string
+          id: string
+          overview_text: string
+          overview_text_2: string
+          overview_title: string
+          product_slug: string
+          specs: Json
+          updated_at: string
+        }
+        Insert: {
+          accent_bar_color?: string
+          accent_dot_color?: string
+          applications?: Json
+          created_at?: string
+          cta_bg?: string
+          cta_description?: string
+          cta_title?: string
+          hero_description?: string
+          hero_subtitle?: string
+          hero_tag?: string
+          hero_tag_color?: string
+          hero_title?: string
+          id?: string
+          overview_text?: string
+          overview_text_2?: string
+          overview_title?: string
+          product_slug: string
+          specs?: Json
+          updated_at?: string
+        }
+        Update: {
+          accent_bar_color?: string
+          accent_dot_color?: string
+          applications?: Json
+          created_at?: string
+          cta_bg?: string
+          cta_description?: string
+          cta_title?: string
+          hero_description?: string
+          hero_subtitle?: string
+          hero_tag?: string
+          hero_tag_color?: string
+          hero_title?: string
+          id?: string
+          overview_text?: string
+          overview_text_2?: string
+          overview_title?: string
+          product_slug?: string
+          specs?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_details_product_slug_fkey"
+            columns: ["product_slug"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          accent_color: string
+          created_at: string
+          description: string
+          id: string
+          slug: string
+          sort_order: number
+          specs: Json
+          subtitle: string
+          tag: string
+          tag_color: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string
+          created_at?: string
+          description?: string
+          id?: string
+          slug: string
+          sort_order?: number
+          specs?: Json
+          subtitle?: string
+          tag?: string
+          tag_color?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string
+          created_at?: string
+          description?: string
+          id?: string
+          slug?: string
+          sort_order?: number
+          specs?: Json
+          subtitle?: string
+          tag?: string
+          tag_color?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      stats: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          sort_order: number
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          sort_order?: number
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          sort_order?: number
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          role: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      why_us: {
+        Row: {
+          created_at: string
+          description: string
+          icon_name: string
+          id: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
