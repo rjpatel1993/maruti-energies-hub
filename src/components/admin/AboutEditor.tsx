@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Save } from "lucide-react";
+import SortableList from "./SortableList";
 
 export default function AboutEditor() {
   const [team, setTeam] = useState<any[]>([]);
@@ -61,49 +62,78 @@ export default function AboutEditor() {
       {/* Team */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-navy font-black text-xl">Team Members</h2>
+          <div>
+            <h2 className="text-xl font-black text-foreground">Team Members</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Manage your team. Drag to reorder.</p>
+          </div>
           <div className="flex gap-2">
-            <button onClick={addTeamMember} className="flex items-center gap-1.5 bg-orange text-white px-4 py-2 rounded-lg text-sm font-semibold"><Plus size={14} /> Add</button>
-            <button onClick={saveTeam} className="bg-navy text-white px-4 py-2 rounded-lg text-sm font-semibold">Save</button>
+            <button onClick={addTeamMember} className="flex items-center gap-1.5 bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"><Plus size={14} /> Add</button>
+            <button onClick={saveTeam} className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"><Save size={14} /> Save</button>
           </div>
         </div>
-        <div className="space-y-3">
-          {team.map((t) => (
-            <div key={t.id} className="bg-white border border-border rounded-lg p-4 space-y-2">
+        <SortableList
+          items={team}
+          onReorder={setTeam}
+          renderItem={(t) => (
+            <div className="bg-card border border-border rounded-xl p-4 space-y-3">
               <div className="flex gap-3">
-                <input value={t.name} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, name: e.target.value } : x))}
-                  className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Name" />
-                <input value={t.role} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, role: e.target.value } : x))}
-                  className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Role" />
-                <button onClick={() => removeTeamMember(t.id)} className="text-red-500"><Trash2 size={14} /></button>
+                <div className="flex-1">
+                  <label className="text-xs font-semibold text-muted-foreground">Name</label>
+                  <input value={t.name} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, name: e.target.value } : x))}
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+                </div>
+                <div className="flex-1">
+                  <label className="text-xs font-semibold text-muted-foreground">Role</label>
+                  <input value={t.role} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, role: e.target.value } : x))}
+                    className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+                </div>
+                <button onClick={() => removeTeamMember(t.id)} className="text-destructive hover:text-destructive/80 p-2 rounded-lg hover:bg-destructive/10 transition-colors mt-5">
+                  <Trash2 size={14} />
+                </button>
               </div>
-              <input value={t.description} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, description: e.target.value } : x))}
-                className="w-full border border-border rounded px-3 py-1.5 text-sm" placeholder="Description" />
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Description</label>
+                <input value={t.description} onChange={(e) => setTeam(team.map((x) => x.id === t.id ? { ...x, description: e.target.value } : x))}
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+              </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
 
       {/* Milestones */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-navy font-black text-xl">Timeline / Milestones</h2>
+          <div>
+            <h2 className="text-xl font-black text-foreground">Timeline / Milestones</h2>
+            <p className="text-sm text-muted-foreground mt-0.5">Company timeline entries. Drag to reorder.</p>
+          </div>
           <div className="flex gap-2">
-            <button onClick={addMilestone} className="flex items-center gap-1.5 bg-orange text-white px-4 py-2 rounded-lg text-sm font-semibold"><Plus size={14} /> Add</button>
-            <button onClick={saveMilestones} className="bg-navy text-white px-4 py-2 rounded-lg text-sm font-semibold">Save</button>
+            <button onClick={addMilestone} className="flex items-center gap-1.5 bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"><Plus size={14} /> Add</button>
+            <button onClick={saveMilestones} className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"><Save size={14} /> Save</button>
           </div>
         </div>
-        <div className="space-y-3">
-          {milestones.map((m) => (
-            <div key={m.id} className="bg-white border border-border rounded-lg p-3 flex gap-3 items-start">
-              <input value={m.year} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, year: e.target.value } : x))}
-                className="border border-border rounded px-3 py-1.5 text-sm w-20" placeholder="Year" />
-              <input value={m.text} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, text: e.target.value } : x))}
-                className="border border-border rounded px-3 py-1.5 text-sm flex-1" placeholder="Description" />
-              <button onClick={() => removeMilestone(m.id)} className="text-red-500"><Trash2 size={14} /></button>
+        <SortableList
+          items={milestones}
+          onReorder={setMilestones}
+          renderItem={(m) => (
+            <div className="bg-card border border-border rounded-xl p-4 flex gap-3 items-start">
+              <div className="w-24 shrink-0">
+                <label className="text-xs font-semibold text-muted-foreground">Year</label>
+                <input value={m.year} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, year: e.target.value } : x))}
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+              </div>
+              <div className="flex-1">
+                <label className="text-xs font-semibold text-muted-foreground">Description</label>
+                <input value={m.text} onChange={(e) => setMilestones(milestones.map((x) => x.id === m.id ? { ...x, text: e.target.value } : x))}
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+              </div>
+              <button onClick={() => removeMilestone(m.id)} className="text-destructive hover:text-destructive/80 p-2 rounded-lg hover:bg-destructive/10 transition-colors mt-5">
+                <Trash2 size={14} />
+              </button>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </div>
     </div>
   );

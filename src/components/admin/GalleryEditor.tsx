@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Save } from "lucide-react";
+import ImageUploader from "./ImageUploader";
+import SortableList from "./SortableList";
 
 export default function GalleryEditor() {
   const [photos, setPhotos] = useState<any[]>([]);
@@ -24,7 +26,7 @@ export default function GalleryEditor() {
 
   const addPhoto = async () => {
     const { data } = await supabase.from("gallery_photos").insert({
-      url: "https://via.placeholder.com/800x600", caption: "New photo", category: "Facility", sort_order: photos.length,
+      url: "", caption: "New photo", category: "Facility", sort_order: photos.length,
     }).select().single();
     if (data) setPhotos([...photos, data]);
   };
@@ -44,34 +46,52 @@ export default function GalleryEditor() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-navy font-black text-xl">Gallery Photos</h2>
+        <div>
+          <h2 className="text-xl font-black text-foreground">Gallery</h2>
+          <p className="text-sm text-muted-foreground mt-0.5">Upload and organize your portfolio photos. Drag to reorder.</p>
+        </div>
         <div className="flex gap-2">
-          <button onClick={addPhoto} className="flex items-center gap-1.5 bg-orange text-white px-4 py-2 rounded-lg text-sm font-semibold"><Plus size={14} /> Add Photo</button>
-          <button onClick={save} className="bg-navy text-white px-4 py-2 rounded-lg text-sm font-semibold">Save All</button>
+          <button onClick={addPhoto} className="flex items-center gap-1.5 bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
+            <Plus size={14} /> Add Photo
+          </button>
+          <button onClick={save} className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity">
+            <Save size={14} /> Save All
+          </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {photos.map((p) => (
-          <div key={p.id} className="bg-white border border-border rounded-xl p-3 space-y-2">
-            <img src={p.url} alt={p.caption} className="w-full h-32 object-cover rounded-lg" />
-            <input value={p.url} onChange={(e) => update(p.id, "url", e.target.value)} placeholder="Image URL"
-              className="w-full border border-border rounded px-3 py-1.5 text-sm" />
-            <input value={p.caption} onChange={(e) => update(p.id, "caption", e.target.value)} placeholder="Caption"
-              className="w-full border border-border rounded px-3 py-1.5 text-sm" />
-            <div className="flex gap-2 items-center">
-              <select value={p.category} onChange={(e) => update(p.id, "category", e.target.value)}
-                className="border border-border rounded px-3 py-1.5 text-sm flex-1">
-                <option>CNG Cascades</option>
-                <option>CBG Cascades</option>
-                <option>Hydrogen</option>
-                <option>Fill Post</option>
-                <option>Facility</option>
-              </select>
-              <button onClick={() => removePhoto(p.id)} className="text-red-500 hover:text-red-700 p-1"><Trash2 size={14} /></button>
+
+      <SortableList
+        items={photos}
+        onReorder={setPhotos}
+        renderItem={(p) => (
+          <div className="bg-card border border-border rounded-xl p-4 flex gap-4 items-start">
+            <div className="w-40 shrink-0">
+              <ImageUploader value={p.url} onChange={(url) => update(p.id, "url", url)} folder="gallery" aspectRatio="4/3" />
             </div>
+            <div className="flex-1 space-y-3">
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Caption</label>
+                <input value={p.caption} onChange={(e) => update(p.id, "caption", e.target.value)} placeholder="Photo caption"
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground">Category</label>
+                <select value={p.category} onChange={(e) => update(p.id, "category", e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all">
+                  <option>CNG Cascades</option>
+                  <option>CBG Cascades</option>
+                  <option>Hydrogen</option>
+                  <option>Fill Post</option>
+                  <option>Facility</option>
+                </select>
+              </div>
+            </div>
+            <button onClick={() => removePhoto(p.id)} className="text-destructive hover:text-destructive/80 p-2 rounded-lg hover:bg-destructive/10 transition-colors">
+              <Trash2 size={14} />
+            </button>
           </div>
-        ))}
-      </div>
+        )}
+      />
     </div>
   );
 }
