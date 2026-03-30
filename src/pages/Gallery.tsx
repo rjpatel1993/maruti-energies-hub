@@ -17,6 +17,7 @@ const categoryColor: Record<string, string> = {
 };
 
 export default function Gallery() {
+  useEffect(() => { document.title = "Gallery — Maruti Engineering & Services"; }, []);
   const [activeTab, setActiveTab] = useState<Category>("All");
   const [lightbox, setLightbox] = useState<any>(null);
 
