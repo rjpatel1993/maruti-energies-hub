@@ -63,6 +63,10 @@ export default function Home() {
   });
 
   useEffect(() => {
+    document.title = PAGE_TITLE;
+  }, []);
+
+  useEffect(() => {
     if (heroSlides.length === 0) return;
     timerRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % heroSlides.length);
