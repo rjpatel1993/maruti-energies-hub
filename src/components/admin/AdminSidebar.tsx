@@ -30,7 +30,7 @@ export default function AdminSidebar({ active, onNavigate, collapsed, onToggle, 
     )}>
       {/* Logo */}
       <div className="h-14 flex items-center px-4 border-b border-white/10">
-        <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-accent-foreground font-black text-sm shrink-0">M</div>
+        <img src="/logo.png" alt="Maruti Engineering" className="h-8 w-auto shrink-0" />
         {!collapsed && <span className="ml-3 font-bold text-sm truncate">Admin Panel</span>}
       </div>
 
