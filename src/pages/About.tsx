@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { CheckCircle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,6 +13,8 @@ const certs = [
 ];
 
 export default function About() {
+  useEffect(() => { document.title = "About Us — Maruti Engineering & Services"; }, []);
+
   const { data: team = [] } = useQuery({
     queryKey: ["team_members"],
     queryFn: async () => {

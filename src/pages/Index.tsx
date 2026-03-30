@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Shield, Globe, Zap, Award } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
+const PAGE_TITLE = "Maruti Engineering & Services — CNG, CBG & Hydrogen Cascade Manufacturer";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -59,6 +61,10 @@ export default function Home() {
       return data || [];
     },
   });
+
+  useEffect(() => {
+    document.title = PAGE_TITLE;
+  }, []);
 
   useEffect(() => {
     if (heroSlides.length === 0) return;

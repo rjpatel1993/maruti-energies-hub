@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, ZoomIn } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +17,7 @@ const categoryColor: Record<string, string> = {
 };
 
 export default function Gallery() {
+  useEffect(() => { document.title = "Gallery — Maruti Engineering & Services"; }, []);
   const [activeTab, setActiveTab] = useState<Category>("All");
   const [lightbox, setLightbox] = useState<any>(null);
 

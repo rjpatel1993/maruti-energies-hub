@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
+  useEffect(() => { document.title = "Contact Us — Maruti Engineering & Services"; }, []);
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", product: "", message: "" });
   const [submitting, setSubmitting] = useState(false);

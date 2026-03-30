@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +17,12 @@ export default function ProductDetail() {
     },
     enabled: !!slug,
   });
+
+  useEffect(() => {
+    if (detail?.hero_title) {
+      document.title = `${detail.hero_title} — Maruti Engineering & Services`;
+    }
+  }, [detail]);
 
   if (isLoading) return (
     <div className="min-h-screen">
