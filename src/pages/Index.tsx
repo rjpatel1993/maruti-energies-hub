@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Shield, Globe, Zap, Award } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
+const PAGE_TITLE = "Maruti Engineering & Services — CNG, CBG & Hydrogen Cascade Manufacturer";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
