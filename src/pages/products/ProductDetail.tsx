@@ -18,6 +18,12 @@ export default function ProductDetail() {
     enabled: !!slug,
   });
 
+  useEffect(() => {
+    if (detail?.hero_title) {
+      document.title = `${detail.hero_title} — Maruti Engineering & Services`;
+    }
+  }, [detail]);
+
   if (isLoading) return (
     <div className="min-h-screen">
       <Navbar />
